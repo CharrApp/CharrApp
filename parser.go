@@ -8,6 +8,7 @@ import (
 	"reflect"
 
 	"github.com/noirbizarre/gonja"
+	"github.com/pkg/errors"
 	"gopkg.in/yaml.v3"
 )
 
@@ -138,7 +139,7 @@ type Changelog struct {
 func Parse(reader io.Reader) (*Config, error) {
 	config := Config{}
 	if err := yaml.NewDecoder(reader).Decode(&config); err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "failed decoding yaml")
 	}
 	if err := interpolate(&config); err != nil {
 		return nil, err
@@ -151,7 +152,6 @@ func interpolate(config *Config) error {
 }
 
 func interpolateRecursive(val reflect.Value, typ *reflect.StructField, config *Config) error {
-	fmt.Println(val.Kind(), val.Type().Name())
 	switch val.Kind() {
 	case reflect.Ptr:
 		return interpolateRecursive(val.Elem(), nil, config)
@@ -169,7 +169,7 @@ func interpolateRecursive(val reflect.Value, typ *reflect.StructField, config *C
 			}
 		}
 	case reflect.String:
-		if typ.Tag.Get("lsp") != "true" {
+		if typ != nil && typ.Tag.Get("lsp") != "true" {
 			return nil
 		}
 		newVal, err := executeTemplate(val.String(), config)
@@ -197,6 +197,5 @@ func executeTemplate(s string, c *Config) (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("failed to execute template: %w", err)
 	}
-	fmt.Println(s, result)
 	return result, nil
 }

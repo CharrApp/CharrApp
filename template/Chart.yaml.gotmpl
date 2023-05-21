@@ -1,0 +1,12 @@
+{{- /*gotype:github.com/charrapp/charrapp.ChartData*/ -}}
+apiVersion: v2
+appVersion: {{ .Version }}
+name: {{ .Config.ProjectName | quote }}
+description: {{ .Config.ProjectBlurb | quote }}
+icon: {{ .Config.ProjectLogo | quote }}
+sources:
+    - {{ .Config.ProjectURL | quote }}
+type: application
+version: {{ .Version }}
+{{- /* TODO Maintainers */ -}}
+{{- /* TODO Repository */ -}}
