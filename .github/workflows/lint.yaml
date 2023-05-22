@@ -15,5 +15,4 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Test
-        run: go test -v ./...
+      - uses: golangci/golangci-lint-action@v3

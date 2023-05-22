@@ -1,0 +1,49 @@
+linters:
+  disable-all: true
+  enable:
+    - errcheck
+    - gosimple
+    - govet
+    - ineffassign
+    - staticcheck
+    - typecheck
+    - unused
+    - bidichk
+    - contextcheck
+    - durationcheck
+    - errorlint
+    - goconst
+    - goimports
+    - revive
+    - misspell
+    - prealloc
+    - whitespace
+    - wrapcheck
+    - gci
+    - gocritic
+    - gofumpt
+    - nonamedreturns
+
+linters-settings:
+  wrapcheck:
+    ignorePackageGlobs:
+      - github.com/charrapp/charrapp/*
+
+  govet:
+    check-shadowing: true
+    enable-all: true
+    disable:
+      - shadow
+
+  gocritic:
+    disabled-checks:
+      - ifElseChain
+
+  gci:
+    custom-order: true
+    sections:
+      - standard
+      - default
+      - prefix(github.com/charrapp/charrapp)
+      - blank
+      - dot

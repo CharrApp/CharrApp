@@ -193,7 +193,6 @@ func executeTemplate(s string, c *Config) (string, error) {
 		"arch_arm64":   "arm64",
 		"arch_armhf":   "armhf",
 	})
-
 	if err != nil {
 		return "", fmt.Errorf("failed to execute template: %w", err)
 	}

@@ -1,15 +1,17 @@
 package parser
 
 import (
-	_ "embed"
 	"strings"
 	"testing"
 
 	"github.com/davecgh/go-spew/spew"
+
+	_ "embed"
 )
 
 //go:embed test.vars
 var testContent string
+
 func TestParse(t *testing.T) {
 	r := strings.NewReader(testContent)
 	config, err := Parse(r)
