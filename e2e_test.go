@@ -36,8 +36,8 @@ func writeOut(t *testing.T, img *lsio.Image) {
 	version := versions[len(versions)-1]
 
 	config, err := img.Config(version.Raw)
+	testza.AssertNoError(t, err)
 	if err != nil {
-		println("FAILED:", err.Error())
 		return
 	}
 
